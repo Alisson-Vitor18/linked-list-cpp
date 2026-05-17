@@ -32,14 +32,14 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 
 - insert     (insere um elemento em uma posição da lista)
 - push_back  (insere um elemento no final da lista)
-- push_front (insere um elemento no ínicio da lista)
+- push_front (insere um elemento no início da lista)
 - remove     (remove um elemento em uma posição da lista)
 - pop_back   (remove o elemento no final da lista)
-- pop_front  (remove o elemento no ínicio da lista)
+- pop_front  (remove o elemento no início da lista)
 - clear      (remove todos os elementos da lista)
 - empty      (verifica se a lista está vazia)
 - size       (retorna o tamanho da lista)
-- get_front  (retorna o elemento do ínicio da lista)
+- get_front  (retorna o elemento do início da lista)
 - get_back   (retorna o elemento do final da lista)
 - get        (retorna o elemento de uma posição da lista)
 
@@ -74,3 +74,170 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 | `get`        | O(n)         |
 
 > Onde `n` representa a quantidade de elementos presentes na lista.
+
+Em operações que acessam posições intermediárias, a busca pode começar pelo início ou pelo fim da lista, dependendo do índice informado. Mesmo assim, a complexidade assintótica permanece O(n).
+
+---
+
+## Como executar (Terminal - Ubuntu 24.04 LTS)
+
+```bash
+mkdir -p build
+g++ src/main.cpp -Iincludes -o build/program
+./build/program
+```
+
+---
+
+## Testes e demonstração da implementação própria
+
+```cpp
+#include <iostream>
+#include <cassert>
+#include "list.hpp"
+
+template<typename T>
+void show_list(const List<T>& list) {
+    std::cout << "\nLista: ";
+    list.print_list(std::cout);
+    std::cout << "Tamanho da lista: " << list.size() << "\n\n";
+}
+
+int main() {
+    List<int> list;
+
+    list.push_front(10);
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.push_back(50);
+
+    show_list(list);
+
+    assert(list.size() == 5);
+    assert(list.get_front() == 10);
+    assert(list.get_back() == 50);
+
+    std::cout << "Removendo elemento " << list.get(1) << "...\n";
+    list.remove(1);
+
+    show_list(list);
+
+    assert(list.size() == 4);
+    assert(list.get(0) == 10);
+    assert(list.get(1) == 30);
+    assert(list.get(2) == 40);
+    assert(list.get(3) == 50);
+
+    std::cout << "Removendo elemento " << list.get(2) << "...\n";
+    list.remove(2);
+
+    show_list(list);
+
+    assert(list.size() == 3);
+    assert(list.get(0) == 10);
+    assert(list.get(1) == 30);
+    assert(list.get(2) == 50);
+
+    list.insert(5, 0);
+    std::cout << "Inserindo elemento na posição 0...\n";
+
+    show_list(list);
+
+    assert(list.get_front() == 5);
+    assert(list.size() == 4);
+
+    list.insert(20, 2);
+    std::cout << "Inserindo elemento na posição 2...\n";
+
+    show_list(list);
+
+    assert(list.get(2) == 20);
+    assert(list.size() == 5);
+
+    list.insert(40, 4);
+    std::cout << "Inserindo elemento na posição 4...\n";
+
+    show_list(list);
+
+    assert(list.get(4) == 40);
+    assert(list.size() == 6);
+
+    std::cout << "Removendo elemento " << list.get_front() << "...\n";
+    list.pop_front();
+
+    show_list(list);
+
+    assert(list.get_front() == 10);
+    assert(list.size() == 5);
+
+    std::cout << "Removendo elemento " << list.get_back() << "...\n";
+    list.pop_back();
+
+    show_list(list);
+
+    assert(list.get_back() == 40);
+    assert(list.size() == 4);
+
+    std::cout << "Removendo todos os elementos da lista...\n";
+    list.clear();
+
+    show_list(list);
+
+    assert(list.empty());
+    assert(list.size() == 0);
+
+    return 0;
+}
+```
+
+O `assert` é utilizado para verificar se as operações produziram o resultado esperado. Caso alguma condição seja falsa, o programa será interrompido, indicando possível erro na implementação.
+
+### Saída esperada
+
+```bash
+Lista: [10, 20, 30, 40, 50]
+Tamanho da lista: 5
+
+Removendo elemento 20...
+
+Lista: [10, 30, 40, 50]
+Tamanho da lista: 4
+
+Removendo elemento 40...
+
+Lista: [10, 30, 50]
+Tamanho da lista: 3
+
+Inserindo elemento na posição 0...
+
+Lista: [5, 10, 30, 50]
+Tamanho da lista: 4
+
+Inserindo elemento na posição 2...
+
+Lista: [5, 10, 20, 30, 50]
+Tamanho da lista: 5
+
+Inserindo elemento na posição 4...
+
+Lista: [5, 10, 20, 30, 40, 50]
+Tamanho da lista: 6
+
+Removendo elemento 5...
+
+Lista: [10, 20, 30, 40, 50]
+Tamanho da lista: 5
+
+Removendo elemento 50...
+
+Lista: [10, 20, 30, 40]
+Tamanho da lista: 4
+
+Removendo todos os elementos da lista...
+
+Lista: []
+Tamanho da lista: 0
+```
+
+---

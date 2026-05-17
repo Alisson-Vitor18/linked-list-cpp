@@ -66,6 +66,9 @@ class List {
 
         //Retorna um valor da lista na posição informada
         const T& get(std::size_t index) const;
+
+        //Imprime os valores na lista
+        void print_list(std::ostream& os) const;
 };  
 
 #include "list.tpp"

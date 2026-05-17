@@ -277,3 +277,17 @@ const T& List<T>::get(std::size_t index) const {
 
     return current->value;
 }
+
+template<typename T>
+void List<T>::print_list(std::ostream& os) const {
+    Node* current = this->head.get();
+    bool first = true;
+
+    os << "[";
+    for(; current != nullptr; current = current->next.get()) {
+        if(!first) os << ", ";
+        os << current->value;
+        first = false;
+    }
+    os << "]\n";
+}
