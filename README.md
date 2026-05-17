@@ -73,4 +73,4 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 | `get_back`   | O(1)         |
 | `get`        | O(n)         |
 
-> Onde `n` representa a quantidade de elementos presentes na fila.
+> Onde `n` representa a quantidade de elementos presentes na lista.
