@@ -27,3 +27,18 @@ Listas duplamente encadeadas são estruturas de dados que permitem realizar oper
 O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tamanho, já que não é necessário definir previamente um limite fixo de elementos. Dessa forma, a estrutura pode crescer dinamicamente conforme a necessidade da aplicação, desde que haja memória disponível no sistema.
 
 ---
+
+## Funcionalidades 
+
+- insert     (insere um elemento em uma posição da lista)
+- push_back  (insere um elemento no final da lista)
+- push_front (insere um elemento no ínicio da lista)
+- remove     (remove um elemento em uma posição da lista)
+- pop_back   (remove o elemento no final da lista)
+- pop_front  (remove o elemento no ínicio da lista)
+- clear      (remove todos os elementos da lista)
+- empty      (verifica se a lista está vazia)
+- size       (retorna o tamanho da lista)
+- get_front  (retorna o elemento do ínicio da lista)
+- get_back   (retorna o elemento do final da lista)
+- get        (retorna o elemento de uma posição da lista)
