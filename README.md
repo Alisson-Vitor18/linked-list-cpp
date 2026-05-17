@@ -30,18 +30,18 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 
 ## Funcionalidades 
 
-- insert     (insere um elemento em uma posição da lista)
-- push_back  (insere um elemento no final da lista)
-- push_front (insere um elemento no início da lista)
-- remove     (remove um elemento em uma posição da lista)
-- pop_back   (remove o elemento no final da lista)
-- pop_front  (remove o elemento no início da lista)
-- clear      (remove todos os elementos da lista)
-- empty      (verifica se a lista está vazia)
-- size       (retorna o tamanho da lista)
-- get_front  (retorna o elemento do início da lista)
-- get_back   (retorna o elemento do final da lista)
-- get        (retorna o elemento de uma posição da lista)
+- `insert`     (insere um elemento em uma posição da lista)
+- `push_back`  (insere um elemento no final da lista)
+- `push_front` (insere um elemento no início da lista)
+- `remove`     (remove um elemento em uma posição da lista)
+- `pop_back`   (remove o elemento no final da lista)
+- `pop_front`  (remove o elemento no início da lista)
+- `clear`      (remove todos os elementos da lista)
+- `empty`      (verifica se a lista está vazia)
+- `size`       (retorna o tamanho da lista)
+- `get_front`  (retorna o elemento do início da lista)
+- `get_back`   (retorna o elemento do final da lista)
+- `get`        (retorna o elemento de uma posição da lista)
 
 ---
 
@@ -239,5 +239,99 @@ Removendo todos os elementos da lista...
 Lista: []
 Tamanho da lista: 0
 ```
+
+---
+
+## Gerenciamento de memória
+
+Esta implementação utiliza `std::unique_ptr` para gerenciamento automático de memória, seguindo os princípios de RAII (*Resource Acquisition Is Initialization*).
+
+Por utilizar smart pointers da STL, não é necessário liberar memória manualmente com `delete`, já que a destruição dos nós ocorre automaticamente quando deixam de ser utilizados. Dessa forma, a implementação se torna mais segura e reduz o risco de vazamentos de memória.
+
+---
+
+## Verificação com Valgrind
+
+O projeto também foi testado com o **Valgrind**, uma ferramenta amplamente utilizada em sistemas Linux para detectar problemas relacionados ao gerenciamento de memória em aplicações C e C++.
+
+Com o Valgrind é possível identificar:
+
+- Vazamentos de memória (*memory leaks*)
+- Uso de memória não inicializada
+- Acessos inválidos à memória
+- Problemas relacionados à desalocação de memória
+
+### Compilando e executando com Valgrind
+
+```bash
+mkdir -p build
+g++ src/main.cpp -Iincludes -g -o build/program
+valgrind --leak-check=full ./build/program
+```
+
+### Saída esperada
+
+```bash
+==1541== Memcheck, a memory error detector
+==1541== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==1541== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==1541== Command: ./build/program
+==1541== 
+
+Lista: [10, 20, 30, 40, 50]
+Tamanho da lista: 5
+
+Removendo elemento 20...
+
+Lista: [10, 30, 40, 50]
+Tamanho da lista: 4
+
+Removendo elemento 40...
+
+Lista: [10, 30, 50]
+Tamanho da lista: 3
+
+Inserindo elemento na posição 0...
+
+Lista: [5, 10, 30, 50]
+Tamanho da lista: 4
+
+Inserindo elemento na posição 2...
+
+Lista: [5, 10, 20, 30, 50]
+Tamanho da lista: 5
+
+Inserindo elemento na posição 4...
+
+Lista: [5, 10, 20, 30, 40, 50]
+Tamanho da lista: 6
+
+Removendo elemento 5...
+
+Lista: [10, 20, 30, 40, 50]
+Tamanho da lista: 5
+
+Removendo elemento 50...
+
+Lista: [10, 20, 30, 40]
+Tamanho da lista: 4
+
+Removendo todos os elementos da lista...
+
+Lista: []
+Tamanho da lista: 0
+
+==1541== 
+==1541== HEAP SUMMARY:
+==1541==     in use at exit: 0 bytes in 0 blocks
+==1541==   total heap usage: 10 allocs, 10 frees, 74,944 bytes allocated
+==1541== 
+==1541== All heap blocks were freed -- no leaks are possible
+==1541== 
+==1541== For lists of detected and suppressed errors, rerun with: -s
+==1541== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
+
+O resultado acima demonstra que, mesmo após a utilização dos métodos implementados, toda a memória alocada foi liberada corretamente, sem ocorrência de vazamentos de memória.
 
 ---
