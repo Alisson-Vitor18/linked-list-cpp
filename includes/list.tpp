@@ -11,13 +11,11 @@ void List<T>::insert(const T& value, std::size_t index) {
         throw std::out_of_range("Não é possível inserir, pois a posição é inválida!");
     }
 
-    //Inserir no primeiro
     if(index == 0) {
         push_front(value);
         return;
     }
 
-    //Inserir no último
     if(index == this->size_l) {
         push_back(value);
         return;
@@ -26,7 +24,6 @@ void List<T>::insert(const T& value, std::size_t index) {
     auto new_node = std::make_unique<Node>(value);
     Node* previous = nullptr;
 
-    //Inserir no meio
     if(index <= this->size_l / 2) {
         previous = this->head.get();
 
@@ -90,13 +87,11 @@ void List<T>::remove(std::size_t index) {
         throw std::out_of_range("Não é possível remover, pois a posição é inválida!");
     }
 
-     //Remover o primeiro
     if (index == 0) {
         pop_front();
         return;
     }
 
-    //Remover o último
     if (index == this->size_l - 1) {
         pop_back();
         return;
@@ -104,7 +99,6 @@ void List<T>::remove(std::size_t index) {
 
     Node* current = nullptr;
 
-    //Remover no meio
     if(index <= this->size_l / 2) {
         current = this->head.get();
 
