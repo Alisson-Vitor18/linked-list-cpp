@@ -42,3 +42,35 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 - get_front  (retorna o elemento do ínicio da lista)
 - get_back   (retorna o elemento do final da lista)
 - get        (retorna o elemento de uma posição da lista)
+
+---
+
+## Tecnologias utilizadas
+
+- C++
+- Templates
+- Smart pointers (`std::unique_ptr`)
+- Estruturas de dados encadeadas
+- STL (`std::list`)
+- Valgrind
+
+--- 
+
+## Complexidade dos métodos implementados
+
+| Método       | Complexidade |
+|--------------|--------------|
+| `insert`     | O(n)         |
+| `push_back`  | O(1)         |
+| `push_front` | O(1)         |
+| `remove`     | O(n)         |
+| `pop_back`   | O(1)         |
+| `pop_front`  | O(1)         |
+| `clear`      | O(n)         |
+| `empty`      | O(1)         |
+| `size`       | O(1)         |
+| `get_front`  | O(1)         |
+| `get_back`   | O(1)         |
+| `get`        | O(n)         |
+
+> Onde `n` representa a quantidade de elementos presentes na fila.
