@@ -24,15 +24,15 @@ class List {
 
         //Insere um valor na lista
         void insert(const T& value, std::size_t index);
-
-        //Remove um valor da lista
-        void remove(std::size_t index);
-
-        //Insere no final da lista
+        
+         //Insere no final da lista
         void push_back(const T& value);
 
         //Insere no começo da lista
         void push_front(const T& value);
+
+        //Remove um valor da lista
+        void remove(std::size_t index);
 
         //Remove no final da lista
         void pop_back();
