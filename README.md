@@ -28,6 +28,22 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 
 ---
 
+## Estrutura do projeto
+
+```bash
+.
+├── includes/
+│   ├── list.hpp
+│   └── list.tpp
+├── src/
+│   └── main.cpp
+├── .gitignore
+├── LICENSE
+└── README.md
+```
+
+---
+
 ## Funcionalidades 
 
 - `insert`     (insere um elemento em uma posição da lista)
@@ -42,6 +58,8 @@ O principal objetivo de utilizar estruturas encadeadas é a flexibilidade de tam
 - `get_front`  (retorna o elemento do início da lista)
 - `get_back`   (retorna o elemento do final da lista)
 - `get`        (retorna o elemento de uma posição da lista)
+
+A estrutura foi implementada com templates, permitindo armazenar diferentes tipos de dados, como `int`, `float`, `std::string` ou tipos definidos pelo usuário.
 
 ---
 
@@ -335,3 +353,177 @@ Tamanho da lista: 0
 O resultado acima demonstra que, mesmo após a utilização dos métodos implementados, toda a memória alocada foi liberada corretamente, sem ocorrência de vazamentos de memória.
 
 ---
+
+## Sobre a std::list (C++ STL)
+
+A linguagem C++ já fornece uma implementação pronta de lista através da `std::list`, presente na Standard Template Library (STL). Essa estrutura é amplamente utilizada em aplicações reais, oferecendo uma interface simples e eficiente para operações de inserção e remoção, especialmente quando já se possui um iterador para a posição desejada.
+
+No desenvolvimento do dia a dia, o uso de estruturas prontas fornecidas pela linguagem costuma ser a melhor escolha, já que elas são amplamente testadas, otimizadas e facilitam a manutenção do código.
+
+---
+
+### Exemplo de uso com a std::list
+
+```cpp
+#include <iostream>
+#include <iterator>
+#include <cstddef>
+#include <list> 
+
+void print_list(const std::list<int>& list);
+void insere_posicao(std::list<int>& list, std::size_t p, int valor);
+
+int main()
+{
+    //Cria uma lista de inteiros
+    std::list<int> list;
+        
+    //Insere elementos na lista
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+    list.push_back(40);
+    list.push_back(50);
+    
+    //Inicializa it no começo da lista
+    auto it = list.begin();
+    
+    //Imprime a lista
+    print_list(list);
+    
+    //Exibe o elemento na posição 0
+    std::cout << "\nRemovendo elemento: " << *it << std::endl;
+    std::cout << std::endl;
+    
+    //Exclui o elemento no início da lista
+    list.pop_front();
+    
+    //Imprime a lista
+    print_list(list);
+    
+    //Exibe o elemento na última posição
+    std::cout << "\nRemovendo elemento: " << list.back() << std::endl;
+    std::cout << std::endl;
+
+    //Exclui o elemento no final da lista
+    list.pop_back();
+
+    //Imprime a lista
+    print_list(list);
+    
+    //Insere o elemento 5 na posição 0
+    insere_posicao(list, 0, 5);
+    
+    std::cout << "\nInserindo elemento 5...\n" << std::endl;
+    
+    //Imprime a lista
+    print_list(list);
+    
+    //Insere o elemento 10 na posição 1
+    insere_posicao(list, 1, 10);
+    
+    std::cout << "\nInserindo elemento 10...\n" << std::endl;
+    
+    //Imprime a lista
+    print_list(list);
+    
+    //Insere o elemento 50 na posição 5
+    insere_posicao(list, 5, 50);
+    
+    std::cout << "\nInserindo elemento 50...\n" << std::endl;
+    
+    //Imprime a lista
+    print_list(list);
+    
+    //Remove todos os elementos da lista
+    list.clear();
+    
+    std::cout << "\nRemovendo todos os elementos da lista...\n" << std::endl;
+
+    //Imprime a lista
+    print_list(list);
+
+    return 0;
+}
+
+void print_list(const std::list<int>& list) {
+    bool first = true;
+    
+    std::cout << "lista: [";
+    for(auto l : list) {
+        if(!first) std::cout << ", ";
+        std::cout << l;
+        first = false;
+    }
+    std::cout << "]\n";
+    
+    std::cout << "Tamanho da lista: " << list.size() << std::endl;
+}
+
+void insere_posicao(std::list<int>& list, std::size_t p, int valor) {
+    if (p > list.size()) {
+        std::cout << "Posição inválida\n";
+        return;
+    }
+    
+    std::list<int>::iterator it = list.begin();
+    
+    std::advance(it, p);
+    
+    list.insert(it, valor);
+}
+```
+
+### Saída esperada
+
+```bash
+lista: [10, 20, 30, 40, 50]
+Tamanho da lista: 5
+
+Removendo elemento: 10
+
+lista: [20, 30, 40, 50]
+Tamanho da lista: 4
+
+Removendo elemento: 50
+
+lista: [20, 30, 40]
+Tamanho da lista: 3
+
+Inserindo elemento 5...
+
+lista: [5, 20, 30, 40]
+Tamanho da lista: 4
+
+Inserindo elemento 10...
+
+lista: [5, 10, 20, 30, 40]
+Tamanho da lista: 5
+
+Inserindo elemento 50...
+
+lista: [5, 10, 20, 30, 40, 50]
+Tamanho da lista: 6
+
+Removendo todos os elementos da lista...
+
+lista: []
+Tamanho da lista: 0
+```
+
+---
+
+## Objetivo do projeto
+Este projeto foi desenvolvido **exclusivamente para fins de estudo e demonstração**, com o objetivo de entender como estruturas encadeadas podem ser implementadas em C++.
+
+---
+
+## Conclusão
+
+Embora a implementação própria seja importante para fins educacionais, em projetos reais geralmente é recomendado utilizar ferramentas prontas como a `std::list`, que oferecem maior confiabilidade, manutenção simplificada e integração com o ecossistema da linguagem.
+
+---
+
+## Autor
+
+Desenvolvido por **Alisson Vitor Pereira Barbosa**
